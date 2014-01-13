@@ -1,6 +1,5 @@
 package com.happyblueduck.lembas.core;
 
-
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
@@ -8,7 +7,6 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
-import java.util.UUID;
 import java.util.logging.Logger;
 
 /**
@@ -17,15 +15,11 @@ import java.util.logging.Logger;
  * Date: 9/13/11
  * Time: 4:05 PM
  */
-public abstract class LembasRequest extends LembasObject {
+public abstract class LembasRequest extends LembasObject{
 
     private static Logger logger = Logger.getLogger(LembasResponse.class.getName());
 
     public static String host;
-
-    // these are different for serialization purpose....
-    public static String globalSession = UUID.randomUUID().toString().toUpperCase();
-    public static String globalRegisterId;    // same as the device ID.
 
     // ...only public instance vars are going to be serialized
     public String session;
@@ -35,12 +29,7 @@ public abstract class LembasRequest extends LembasObject {
 
     public String verb;
 
-    public void addHeader(String header, String value) {
-        if (additionalHeaders == null)
-            additionalHeaders = new HashMap<String, String>();
 
-        additionalHeaders.put(header, value);
-    }
 
     public Logger getLogger() {
         if (logger == null) {
@@ -50,16 +39,16 @@ public abstract class LembasRequest extends LembasObject {
         return logger;
     }
 
-    public void throwProcessingException(String reason) throws RequestProcessException {
-        throw new RequestProcessException(this.getClass().getName(), reason);
-    }
-
     public String getHost() {
         return host;
     }
 
-    public abstract LembasResponse process(LembasActionContext context) throws RequestProcessException, UtilSerializeException;
+    public void addHeader(String header, String value) {
+        if (additionalHeaders == null)
+            additionalHeaders = new HashMap<String, String>();
 
+        additionalHeaders.put(header, value);
+    }
     public LembasResponse run() throws UtilSerializeException {
 
         logger.info("Sending Lembas Request: "+ this.getClass().getSimpleName());
@@ -109,7 +98,7 @@ public abstract class LembasRequest extends LembasObject {
         return response;
     }
 
-    private LembasResponse readStream(InputStream is) throws UtilSerializeException, IOException, RequestProcessException {
+    private LembasResponse readStream(InputStream is) throws UtilSerializeException, IOException {
 
         InputStreamReader isr = new InputStreamReader(is, "UTF8");
 
@@ -129,7 +118,9 @@ public abstract class LembasRequest extends LembasObject {
         if (jsonError != null) {
             //LembasFault
             logger.severe("REQUEST FAILED!!!!");
-            throw new RequestProcessException("Error", (String) jsonError.get("exceptionName") + ":" + jsonError.get("message"));
+            //throw new RequestProcessException("Error", (String) jsonError.get("exceptionName") + ":" + jsonError.get("message"));
+            throw new IOException(jsonError.get("exceptionName") + ":" + jsonError.get("message"));
+
         } else {
             JSONObject response = (JSONObject) json.get("Result");
             return (LembasResponse) LembasUtil.deserialize((response));
