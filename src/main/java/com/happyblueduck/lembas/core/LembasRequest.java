@@ -1,5 +1,7 @@
 package com.happyblueduck.lembas.core;
 
+import com.happyblueduck.lembas.commons.LembasFault;
+import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
@@ -7,7 +9,7 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
-import java.util.logging.Logger;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -91,8 +93,11 @@ public abstract class LembasRequest extends LembasObject{
             response = this.readStream(connection.getInputStream());
 
         } catch (Exception e) {
-            logger.warning("Exception while reading running");
-            e.printStackTrace();
+            logger.warn("Exception while reading running:");
+            logger.warn(e.getLocalizedMessage());
+            logger.warn(e.getClass().getCanonicalName());
+
+            response = new LembasFault("Run exception");
         }
 
         return response;
@@ -117,7 +122,7 @@ public abstract class LembasRequest extends LembasObject{
         JSONObject jsonError = (JSONObject) json.get("Error");
         if (jsonError != null) {
             //LembasFault
-            logger.severe("REQUEST FAILED!!!!");
+            logger.error("REQUEST FAILED!!!!");
             //throw new RequestProcessException("Error", (String) jsonError.get("exceptionName") + ":" + jsonError.get("message"));
             throw new IOException(jsonError.get("exceptionName") + ":" + jsonError.get("message"));
 

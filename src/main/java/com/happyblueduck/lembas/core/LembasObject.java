@@ -88,7 +88,7 @@ public class LembasObject extends Object {
         //HashMap<String, Object> result = new HashMap<>();
         result.put(LembasUtil.typeIdentifier, "MObjectDef");
         String className = this.getClass().getSimpleName();
-        result.put("name", className); // TODO If you want to change sync-server, change this to _name!
+        result.put("name", className);
 
         String ofType = BASE_OBJECT;
         if (className.endsWith("Request")) {

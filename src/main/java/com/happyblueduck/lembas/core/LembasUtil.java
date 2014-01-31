@@ -305,6 +305,9 @@ public class LembasUtil {
         try {
 
             c = getaClass(className);
+            if ( c == null){
+                log.warning("skipping unknown class:"+className);
+            }
 
             //Object n = c.newInstance();
             Object n = c.getConstructor().newInstance();
@@ -345,12 +348,10 @@ public class LembasUtil {
                     }
                 }
             }
-
             return n;
 
-
         } catch (ClassNotFoundException e) {
-            log.severe("class not found for " + map);
+            log.severe("class not found for " + c);
             //e.printStackTrace();
             throw new UtilSerializeException("", "", map.toString());
         } catch (InstantiationException e) {
