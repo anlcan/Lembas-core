@@ -264,7 +264,11 @@ public class LembasObject extends Object {
             } else if (f.getType() == Boolean.class && value.getClass() == Long.class) {
                 Boolean d = Boolean.valueOf(String.valueOf(value)); // OMG!!!!
                 f.set(this, d);
+            } else if ( f.getType() == int.class && value.getClass() == Long.class){
+                f.set(this, ((Long)value).intValue());
+
             }
+
         } else
             f.set(this, value);
     }

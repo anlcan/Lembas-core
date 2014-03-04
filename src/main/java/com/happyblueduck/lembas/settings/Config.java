@@ -24,11 +24,17 @@ public  class Config {
     public static Boolean isDevelopment;
 
     private final static Set<String> endPointPackages = new HashSet<String>();;
+    private final static Set<String> artifactsPackages = new HashSet<String>();;
 
     // endpoint -> incoming
     public static List<String> getEndPointPackages() {
         return Lists.newArrayList(endPointPackages);
     }
+
+    public static List<String> getArtifactsPackages() {
+        return Lists.newArrayList(artifactsPackages);
+    }
+
 
     public static void addEndPoint(String packageName){
         endPointPackages.add(packageName);
@@ -38,10 +44,20 @@ public  class Config {
         endPointPackages.remove(packageName);
     }
 
+    public static void addArtifact(String packageName){
+        artifactsPackages.add(packageName);
+    }
+
+    public static void removeArtifact(String packageName) {
+        artifactsPackages.remove(packageName);
+    }
+
+
     public static List<String> getPackages() {
 
         ArrayList<String> packages = new ArrayList<String>();
         packages.addAll(getEndPointPackages());
+        packages.addAll(getArtifactsPackages());
 
         return packages;
     }

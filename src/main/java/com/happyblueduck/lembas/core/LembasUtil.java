@@ -261,14 +261,6 @@ public class LembasUtil {
 
         }
 
-//        if (type == Long.class || type == String.class || type == Number.class || type == Integer.class || Double.class == type || Boolean.class == type) {
-//            return f;
-//            // TODO hacked for long
-//
-//        }  else  else
-
-//        log.info("failed to evaluate:" + type.getName() + " " + f);
-
         return f;
     }
 

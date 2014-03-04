@@ -19,7 +19,7 @@ import java.util.HashMap;
  */
 public abstract class LembasRequest extends LembasObject{
 
-    private static Logger logger = Logger.getLogger(LembasResponse.class.getName());
+    private  Logger logger;
 
     public static String host;
 
@@ -53,7 +53,7 @@ public abstract class LembasRequest extends LembasObject{
     }
     public LembasResponse run() throws UtilSerializeException {
 
-        logger.info("Sending Lembas Request: "+ this.getClass().getSimpleName());
+        getLogger().info("Sending Lembas Request: "+ this.getClass().getSimpleName());
         // By default, resolve VERB from ClassName
         if (null == verb) {
 
@@ -74,9 +74,7 @@ public abstract class LembasRequest extends LembasObject{
             connection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
             connection.setRequestProperty("User-Agent", "google app engine");
 
-
             connection.setConnectTimeout(35 * 1000);
-
 
             if (additionalHeaders != null)
                 for (String key : additionalHeaders.keySet())
