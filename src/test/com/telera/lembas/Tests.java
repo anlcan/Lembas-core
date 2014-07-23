@@ -1,6 +1,5 @@
 package com.telera.lembas;
 
-import com.happyblueduck.lembas.core.LembasObject;
 import com.happyblueduck.lembas.core.LembasUtil;
 import com.happyblueduck.lembas.core.UtilSerializeException;
 import com.happyblueduck.lembas.settings.Config;
@@ -44,6 +43,7 @@ public class Tests {
         assertEquals(one.cypher, two.cypher);
         assertEquals(one.objectKey, two.objectKey);
     }
+
 }
 
 
