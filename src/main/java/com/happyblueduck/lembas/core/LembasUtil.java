@@ -154,6 +154,9 @@ public class LembasUtil {
     }
 
     private static Object parseValue(Object f) throws UtilSerializeException {
+        return parseValue(f, false);
+    }
+    private static Object parseValue(Object f, boolean skipUnderScore) throws UtilSerializeException {
 
         Class type = f.getClass();
 
@@ -162,9 +165,9 @@ public class LembasUtil {
                 || type == Number.class
                 || type == Integer.class
                 || Long.class == type
-                || Double.class == type
-                || Boolean.class == type) {
-
+                || Double.class == type) {
+            return f;
+        }else if ( type == Boolean.class) {
             return f;
 
         } else if (type.isEnum()) {
@@ -178,18 +181,18 @@ public class LembasUtil {
             ArrayList input = (ArrayList) f;
 
             for (Object inner : input) {
-                Object o = parseValue(inner);
+                Object o = parseValue(inner, skipUnderScore);
                 result.add(o);
             }
 
             return result;
         } else if (type == Date.class){
              LembasDate date =  new LembasDate((Date) f);
-            return serialize(date);
+            return serialize(date, skipUnderScore);
         }
         else {
 
-            return serialize(f);
+            return serialize(f, skipUnderScore);
         }
     }
 
@@ -225,7 +228,7 @@ public class LembasUtil {
                 Object fieldValue = f.get(o);
                 if (fieldValue == null) continue;
 
-                Object value = LembasUtil.parseValue(fieldValue);
+                Object value = LembasUtil.parseValue(fieldValue, skipUnderScore);
                 result.put(key, value);
 
             } catch (IllegalAccessException iae) {
@@ -240,29 +243,7 @@ public class LembasUtil {
         return result;
     }
 
-    // DESERIALIZATION
-    private static Object evaluateValue(Object f) throws UtilSerializeException {
 
-        Class type = f.getClass();
-        if (type == JSONObject.class) {
-            return deserialize((JSONObject) f);
-        }
-
-        if (type == JSONArray.class) {
-
-            ArrayList<Object> result = new ArrayList<Object>();
-            ArrayList input = (ArrayList) f;
-
-            for (Object inner : input) {
-                result.add(evaluateValue(inner));
-            }
-
-            return result;
-
-        }
-
-        return f;
-    }
 
 
     public static Class searchClass(String packageName, String className) {
@@ -284,6 +265,29 @@ public class LembasUtil {
             throw new ClassNotFoundException(className);
         }
         return c;
+    }
+
+    // DESERIALIZATION
+    private static Object evaluateValue(Object f) throws UtilSerializeException {
+
+        Class type = f.getClass();
+        if (type == JSONObject.class) {
+            return deserialize((JSONObject) f);
+        }
+
+        if (type == JSONArray.class) {
+
+            ArrayList<Object> result = new ArrayList<Object>();
+            ArrayList input = (ArrayList) f;
+
+            for (Object inner : input) {
+                result.add(evaluateValue(inner));
+            }
+
+            return result;
+        }
+
+        return f;
     }
 
     public static Object deserialize(Map map) throws UtilSerializeException {
@@ -343,7 +347,7 @@ public class LembasUtil {
             return n;
 
         } catch (ClassNotFoundException e) {
-            log.severe("class not found for " + c);
+            log.severe("class not found for " + className);
             //e.printStackTrace();
             throw new UtilSerializeException("", "", map.toString());
         } catch (InstantiationException e) {

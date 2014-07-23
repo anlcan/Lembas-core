@@ -179,7 +179,7 @@ public class LembasObject extends Object {
                 propertyType = trans.get(declaringClass);
 
             } else {
-                logger.warning("\n**skipping " + declaringClass + " " + f.getName());
+                //logger.warning("\n**skipping " + declaringClass + " " + f.getName());
             }
 
             property.put("propType", propertyType);
@@ -241,32 +241,41 @@ public class LembasObject extends Object {
 
                 f.set(this, declaringClass.getEnumConstants()[0]);
 
-            } else
-                logger.warning("\n**skipping " + declaringClass + " " + f.getName());
+            } else {
+                //logger.warning("\n**skipping " + declaringClass + " " + f.getName());
+            }
         }
     }
 
     public void setField(Field f, Object value ) throws IllegalAccessException {
-//        if (f.getType() == Double.class && value.getClass() == Long.class){
-//            Double d = (double) (Long) value;
-//            f.set(this, d);
-//        } else
-//            f.set(this, value);
 
         if (f.getType() != value.getClass()){
-//            logger.info(String.format("casting value from %s to %s of %s", value.getClass(), f.getType(), value));
+//            logger.info(String.format("casting value from %s: %s to %s of %s",
+//                    f.getName(),
+//                    value.getClass(),
+//                    f.getType(),
+//                    value));
 //                Object d = f.getType().cast(value);
 //                f.set(this, d);
 
-            if (f.getType() == Double.class && value.getClass() == Long.class){
-                Double d =  ((Long) value).doubleValue();
-                f.set(this, d);
-            } else if (f.getType() == Boolean.class && value.getClass() == Long.class) {
-                Boolean d = Boolean.valueOf(String.valueOf(value)); // OMG!!!!
-                f.set(this, d);
-            } else if ( f.getType() == int.class && value.getClass() == Long.class){
-                f.set(this, ((Long)value).intValue());
-
+            //  playing nice with Google Datasore Long
+            if(value.getClass() == Long.class) {
+                Long lvalue = (Long) value;
+                if (f.getType() == Double.class) {
+                    Double d = lvalue.doubleValue();
+                    f.set(this, d);
+                } else if (f.getType() == boolean.class) {
+                    f.set(this, (lvalue.intValue() == 1));
+                } else if (f.getType() == int.class ) {
+                    f.set(this, lvalue.intValue());
+                }
+            }  else {
+                // use the force for the rest
+                try{
+                    f.set(this,value);
+                } catch(Exception e){
+                    //logger.warning(e.getLocalizedMessage());
+                }
             }
 
         } else

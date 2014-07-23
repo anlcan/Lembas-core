@@ -23,6 +23,9 @@ public  class Config {
     public static String HOST_PORT;
     public static Boolean isDevelopment;
 
+    public static String version = "1.0";
+    public static String projectId = "LembasProject";
+
     private final static Set<String> endPointPackages = new HashSet<String>();;
     private final static Set<String> artifactsPackages = new HashSet<String>();;
 
