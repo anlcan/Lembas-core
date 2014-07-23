@@ -6,9 +6,8 @@
 
     <groupId>com.happyblueduck.lembas</groupId>
     <artifactId>lembas-core</artifactId>
+    <name>lembas-core</name>
 
-
-    <name>Lembas-core</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -17,15 +16,6 @@
 
     <distributionManagement>
         <downloadUrl>http://maven.happyblueduck.com/${project.artifactId}</downloadUrl>
-
-        <!--<repository>-->
-            <!--<uniqueVersion>false</uniqueVersion>-->
-            <!--<id>happyblueduck</id>-->
-            <!--<name>Lembas GAE backend</name>-->
-            <!--<url>ftp://happyblueduck.com/public_html/maven/</url>-->
-            <!--<layout>default</layout>-->
-        <!--</repository>-->
-
         <repository>
             <id>dropbox</id>
             <url>file:///Users/anlcan/Dropbox/mvn-repository/${project.artifactId}</url>
