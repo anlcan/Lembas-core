@@ -78,7 +78,7 @@ public class LembasObject extends Object {
     /**
      * Returns discovery description of the object parsable by the sync-server
      *
-     * @return
+     * @return description of the object in JSONObject format
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
