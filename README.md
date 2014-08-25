@@ -8,36 +8,36 @@ This is a simple and flexible object serialization library built on top of [simp
 inject its class(type) into serialized data, so it can be deserailized as the correct type.
 
 ``` java
+package com.matrix;
 public class User extends LembasObject{
-
     public String name;
     public String value;
     public int loginCount;
     public Date registerDate;
-
 }
 ```
 
-An instance of User class will be serialized as follows.
+An instance of User class will be serialized to json as follows.
 
 ```json
-
 {
     "_type":"User",
-    "registerDate":{"_type":"LembasDate","time":"16:58:05","date":"25\/08\/2014","zone":"+0300"},
+    "registerDate":{"_type":"LembasDate",
+                        "time":"16:58:05",
+                        "date":"25\/08\/2014",
+                        "zone":"+0300"},
     "name":"Keanu",
     "value":"The One",
     "loginCount":1337
 }
-
 ```
 
 We can  than proceed to restore the instance with *LembasUtil*
 ``` java
-
+ Config.addArtifact("com.matrix");
  User neo = LembasUtil.deserialize(json);
-
 ```
+
 
 
 
