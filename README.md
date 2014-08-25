@@ -34,11 +34,69 @@ An instance of User class will be serialized to json as follows.
 
 We can  than proceed to restore the instance with *LembasUtil*
 ``` java
- Config.addArtifact("com.matrix");
+ Config.addArtifact("com.matrix"); // setting the target package, for once
  User neo = LembasUtil.deserialize(json);
 ```
 
+Also, we can ask the instance to describe itself:
 
+``` java
+JSONObject object = neo.discoDescription();
+System.out.println(object.toJSONString());
+```
+will print:
+
+``` json
+{
+	"_type" : "MObjectDef",
+	"ofType" : "BASE_OBJECT",
+	"name" : "User",
+	"properties" : [
+		{
+			"_type" : "MPropertyDef",
+			"propType" : "MSTRING",
+			"propExtData" : "String",
+			"propName" : "value"
+		},
+		{
+			"_type" : "MPropertyDef",
+			"propType" : "MSTRING",
+			"propExtData" : "String",
+			"propName" : "objectKey"
+		},
+		{
+			"_type" : "MPropertyDef",
+			"propType" : "MSTRING",
+			"propExtData" : "String",
+			"propName" : "createDate"
+		},
+		{
+			"_type" : "MPropertyDef",
+			"propType" : "MSTRING",
+			"propExtData" : "String",
+			"propName" : "name"
+		},
+		{
+			"_type" : "MPropertyDef",
+			"propType" : "MINT",
+			"propExtData" : "int",
+			"propName" : "loginCount"
+		},
+		{
+			"_type" : "MPropertyDef",
+			"propType" : "MSTRING",
+			"propExtData" : "String",
+			"propName" : "updateDate"
+		},
+		{
+			"_type" : "MPropertyDef",
+			"propType" : "MDATE",
+			"propExtData" : "Date",
+			"propName" : "registerDate"
+		}
+	]
+}
+```
 
 
 ## Roadmap

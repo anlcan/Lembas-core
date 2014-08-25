@@ -46,7 +46,7 @@ public class Tests {
     }
 
     @Test
-    public void ser() throws UtilSerializeException {
+    public void ser() throws UtilSerializeException, InstantiationException, IllegalAccessException {
         User neo = new User();
         neo.name = "Keanu";
         neo.value = "The One";
@@ -54,6 +54,9 @@ public class Tests {
         neo.registerDate = new Date();
 
         System.out.println(LembasUtil.serialize(neo));
+
+        JSONObject disco = neo.discoDescription();
+        System.out.println(disco.toJSONString());
     }
 
 
