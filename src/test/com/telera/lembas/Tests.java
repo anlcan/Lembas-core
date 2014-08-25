@@ -7,6 +7,7 @@ import org.json.simple.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Date;
 import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
@@ -43,6 +44,18 @@ public class Tests {
         assertEquals(one.cypher, two.cypher);
         assertEquals(one.objectKey, two.objectKey);
     }
+
+    @Test
+    public void ser() throws UtilSerializeException {
+        User neo = new User();
+        neo.name = "Keanu";
+        neo.value = "The One";
+        neo.loginCount = 1337;
+        neo.registerDate = new Date();
+
+        System.out.println(LembasUtil.serialize(neo));
+    }
+
 
 }
 

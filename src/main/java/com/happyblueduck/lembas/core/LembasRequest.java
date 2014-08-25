@@ -31,6 +31,7 @@ public abstract class LembasRequest extends LembasObject{
 
     public String verb;
 
+    public URLConnection connection;
 
 
     public Logger getLogger() {
@@ -70,7 +71,7 @@ public abstract class LembasRequest extends LembasObject{
             wrapper.put("request", request);
 
             URL url = new URL(getHost() + verb);
-            URLConnection connection = url.openConnection();
+            connection = url.openConnection();
             connection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
             connection.setRequestProperty("User-Agent", "google app engine");
 
