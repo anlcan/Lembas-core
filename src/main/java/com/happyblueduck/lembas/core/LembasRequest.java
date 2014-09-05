@@ -21,7 +21,8 @@ public abstract class LembasRequest extends LembasObject{
 
     private  Logger logger;
 
-    public static String host;
+    public static String HOST;
+    private String host;
 
     // ...only public instance vars are going to be serialized
     public String session;
@@ -31,7 +32,23 @@ public abstract class LembasRequest extends LembasObject{
 
     public String verb;
 
-    public URLConnection connection;
+    public String getVerb() {
+        // By default, resolve VERB from ClassName
+        if (null == verb) {
+
+            String className = this.getClass().getSimpleName();
+            this.verb = className.substring(0, className.length() - "Request".length());
+        }
+        return verb;
+    }
+
+    public String _type;
+
+    private URLConnection connection;
+    public URLConnection getConnection() {
+        return connection;
+    }
+
 
 
     public Logger getLogger() {
@@ -43,7 +60,13 @@ public abstract class LembasRequest extends LembasObject{
     }
 
     public String getHost() {
-        return host;
+        if ( null != host)
+            return host;        else
+            return HOST;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
     }
 
     public void addHeader(String header, String value) {
@@ -52,15 +75,11 @@ public abstract class LembasRequest extends LembasObject{
 
         additionalHeaders.put(header, value);
     }
+
+
     public LembasResponse run() throws UtilSerializeException {
 
         getLogger().info("Sending Lembas Request: "+ this.getClass().getSimpleName());
-        // By default, resolve VERB from ClassName
-        if (null == verb) {
-
-            String className = this.getClass().getSimpleName();
-            this.verb = className.substring(0, className.length() - "Request".length());
-        }
 
 
         LembasResponse response = null;
@@ -70,7 +89,7 @@ public abstract class LembasRequest extends LembasObject{
             JSONObject wrapper = new JSONObject();
             wrapper.put("request", request);
 
-            URL url = new URL(getHost() + verb);
+            URL url = new URL(getHost() + getVerb());
             connection = url.openConnection();
             connection.setRequestProperty("Content-Type", "application/json;charset=utf-8");
             connection.setRequestProperty("User-Agent", "google app engine");
@@ -131,6 +150,15 @@ public abstract class LembasRequest extends LembasObject{
         }
 
 
+    }
+
+    public  class Wrapper {
+
+        public LembasRequest request;
+
+        private Wrapper(LembasRequest request) {
+            this.request = request;
+        }
     }
 
 }
