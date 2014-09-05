@@ -38,7 +38,7 @@ We can  than proceed to restore the instance with *LembasUtil*
  User neo = LembasUtil.deserialize(json);
 ```
 
-Also, we can ask the instance to describe itself:
+Also, we can ask the instance to describe itself according to [HandsomeProtocol](http://handsomeprotocol.org/index.html):
 
 ``` java
 JSONObject object = neo.discoDescription();
