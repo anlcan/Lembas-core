@@ -92,6 +92,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.google.http-client</groupId>
+            <artifactId>google-http-client-appengine</artifactId>
+            <version>1.18.0-rc</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.5</version>
@@ -108,9 +114,14 @@
           <artifactId>json-simple</artifactId>
           <version>1.1.1</version>
       </dependency>
+        <dependency>
+            <groupId>com.google.http-client</groupId>
+            <artifactId>google-http-client-jackson</artifactId>
+            <version>1.18.0-rc</version>
+        </dependency>
 
 
-  </dependencies>
+    </dependencies>
 
 
     <build>
