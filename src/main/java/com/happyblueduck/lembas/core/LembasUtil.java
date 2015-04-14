@@ -13,6 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -186,7 +187,7 @@ public class LembasUtil {
             }
 
             return result;
-        } else if (type == Date.class){
+        } else if (type == Date.class || type == Timestamp.class){
              LembasDate date =  new LembasDate((Date) f);
             return serialize(date, skipUnderScore);
         }

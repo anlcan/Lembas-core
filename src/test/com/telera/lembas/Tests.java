@@ -29,7 +29,7 @@ public class Tests {
 
         Matrix one = new Matrix();
         one.neo  =" is the one";
-        one.trinity = false;
+        one.trinity = true;
         one.tank = 1l;
         one.cypher = 2d;
         one.objectKey = UUID.randomUUID().toString();
