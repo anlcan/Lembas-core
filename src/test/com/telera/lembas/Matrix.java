@@ -13,4 +13,5 @@ public class Matrix extends LembasObject {
     public Boolean trinity;
     public Long tank;
     public Double cypher;
+    public Integer morphios;
 }

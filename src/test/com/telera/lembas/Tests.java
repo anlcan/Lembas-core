@@ -33,6 +33,7 @@ public class Tests {
         one.tank = 1l;
         one.cypher = 2d;
         one.objectKey = UUID.randomUUID().toString();
+        one.morphios = Integer.valueOf(Integer.MAX_VALUE);
 
         JSONObject o = LembasUtil.serialize(one);
 
@@ -43,6 +44,7 @@ public class Tests {
         assertEquals(one.tank, two.tank);
         assertEquals(one.cypher, two.cypher);
         assertEquals(one.objectKey, two.objectKey);
+        assertEquals(one.objectKey, two.objectKey);
     }
 
     @Test
@@ -52,6 +54,7 @@ public class Tests {
         neo.value = "The One";
         neo.loginCount = 1337;
         neo.registerDate = new Date();
+        neo.integer = Integer.valueOf(1001);
 
         System.out.println(LembasUtil.serialize(neo));
 

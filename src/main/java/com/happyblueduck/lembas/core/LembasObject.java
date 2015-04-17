@@ -42,6 +42,7 @@ public class LembasObject extends Object {
     static {
 
         trans.put(int.class,    INT);
+        trans.put(Integer.class, INT);
         trans.put(double.class, DOUBLE);
         trans.put(Double.class, DOUBLE);
         trans.put(long.class,   LONG);

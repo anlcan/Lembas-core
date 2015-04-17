@@ -15,5 +15,6 @@ public class User extends LembasObject {
     public String value;
     public int loginCount;
     public Date registerDate;
+    public Integer integer;
 
 }
