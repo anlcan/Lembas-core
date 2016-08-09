@@ -30,10 +30,13 @@ public class LembasObject extends Object {
 
     /**
      * Return the name of the class.
-     * <p/>
+     * <p>
      * This is typically the same name as the constructor.
      * Classes extending ScriptableObject must implement this abstract
      * method.
+     * </p>
+     *
+     * @return classname
      */
 
     public String getClassName() {
@@ -43,9 +46,8 @@ public class LembasObject extends Object {
     /**
      * Returns discovery description of the object parsable by the sync-server
      *
-     * @return description of the object in JSONObject format
      * @throws IllegalAccessException
-     * @throws InstantiationException
+     * @return description of the object in JSONObject format
      */
     public JSONObject discoDescription() throws IllegalAccessException, InstantiationException {
 
@@ -162,8 +164,6 @@ public class LembasObject extends Object {
     /**
      * initialize the object with default values, used  for discovery methods.
      *
-     * @throws IllegalAccessException
-     * @throws InstantiationException
      */
     public void init() throws IllegalAccessException, InstantiationException {
 
