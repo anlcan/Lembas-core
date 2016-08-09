@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,7 +15,6 @@ import java.util.logging.Logger;
  */
 public  class Config {
 
-    public static final Logger logger = Logger.getLogger("Config");
 
     public static String serviceName;
     public static String HOST_URL;

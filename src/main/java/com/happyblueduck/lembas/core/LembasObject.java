@@ -10,8 +10,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.logging.Logger;
 
+import static com.happyblueduck.lembas.core.LembasConstants.*;
 /**
  * User: anlcan
  * Date: 9/13/11
@@ -19,42 +19,6 @@ import java.util.logging.Logger;
  */
 public class LembasObject extends Object {
 
-    public static final Logger logger = Logger.getLogger(LembasObject.class.getName());
-
-    // look up the generate python utility to find its reciproque
-    public static HashMap<Class, String> trans = new HashMap<Class, String>();
-
-    public static final String BASE_OBJECT      = "BASE_OBJECT";
-    public static final String BASE_RESPONSE    = "BASE_RESPONSE";
-    public static final String BASE_REQUEST     = "BASE_REQUEST";
-
-    public static final String OBJECT   = "MOBJECT";
-    public static final String ENUM     = "MENUM";
-    public static final String ARRAY    = "ARRAYOF_";
-
-    public static final String INT      = "MINT";
-    public static final String DOUBLE   = "MDOUBLE";
-    public static final String LONG     = "MLONG";
-    public static final String STRING   = "MSTRING";
-    public static final String BOOL     = "MBOOL";
-    public static final String DATE     = "MDATE";
-
-    static {
-
-        trans.put(int.class,    INT);
-        trans.put(Integer.class, INT);
-        trans.put(double.class, DOUBLE);
-        trans.put(Double.class, DOUBLE);
-        trans.put(long.class,   LONG);
-        trans.put(Long.class,   LONG);
-        trans.put(Boolean.class, BOOL);
-        trans.put(boolean.class, BOOL);
-        trans.put(String.class, STRING);
-        trans.put(Date.class,   DATE);
-
-        //trans.put(ArrayList.class,  "ARRAYOF_"); // objective c generator wont search for type
-
-    }
 
     // these fields will be used by data managers if necessary
     public String createDate;
